@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hasil Kemiripan Kasus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Top 5 Kasus Paling Mirip</h2>
+    <table>
+        <tr>
+            <th>Nama Kasus</th>
+            <th>Similarity Global</th>
+            <th>Skor Kemiripan Lokal</th>
+            <th>Sub-Fitur Cocok (Lokal)</th>
+        </tr>
+        {% for nama, skor_global, lokal_list, skor_lokal_total in hasil %}
+        <tr>
+            <td>{{ nama }}</td>
+            <td>{{ "%.2f"|format(skor_global) }}</td>
+            <td>{{ skor_lokal_total }}</td>
+            <td>
+                <ul>
+                    {% for subfitur, bobot in lokal_list if bobot > 0 %}
+                    <li>{{ subfitur }} (bobot: {{ bobot }})</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">Kembali</a>
+</body>
+</html>

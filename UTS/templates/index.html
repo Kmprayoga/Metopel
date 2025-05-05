@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Kasus Baru</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+            gap: 20px;
+        }
+        fieldset {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Masukkan Gejala Kasus Baru</h2>
+    <form method="post">
+        <div class="grid-container">
+            {% for fitur, subfitur_list in fitur_subfitur.items() %}
+                <fieldset>
+                    <legend><strong>{{ fitur }}</strong></legend>
+                    {% for sub in subfitur_list %}
+                        <label>
+                            <input type="checkbox" name="subfitur" value="{{ sub }}"> {{ sub }}
+                        </label><br>
+                    {% endfor %}
+                </fieldset>
+            {% endfor %}
+        </div>
+        <br>
+        <input type="submit" value="Cek Kasus Mirip">
+    </form>
+</body>
+</html>
